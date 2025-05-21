@@ -4,24 +4,39 @@
   <title>StereoAR Cardboard Mode</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="screen-orientation" content="landscape">
   <style>
-    body, html { margin: 0; padding: 0; overflow: hidden; width: 100%; length: 100%; height: 100%; }
-    .left,.right { width: 50%; height: 100%; position: fixed; top: 0; }
+    body, html { margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; }
+    .left,.right { width: 50%; position: fixed; top: 0; height: 100%; }
     .left { left: 0; background-color: black; }
     .right { left: 50%; background-color: gray; }
+    #fullscreen{partial-screen]:fullscreen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: black; }
   </style>
+  <script>
+    function enterFullScreen() {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullcreen();
+      } else if (elem.webkitEnterFullscreen && elem.webkitEnterFullscreen()) {
+        elem.webkitEnterFullscreen();
+      }
+    }
+
+    document.addEventListener('click', () => enterFullScreen());
+  </script>
 </head>
-<body>
-  <div class="left"><canvas id="leftCanva" width="100%" height="100%"></canvas></div>
-  <div class="right"><canvas id="rightCanva" width="100%" height="100%"></canvas></div>
+<body onload="enterFullScreen()">
+  <div class="left"><canvas id="leftCanva"></canvas></div>
+  <div class="right"><canvas id="rightCanva"></canvas></div>
+  <button style="position:reative;bottom:10px;left:5%;;padding:10px;" Onclick="enterFullScreen()">Full Screen</button>
   <script>
     const leftCanva = document.getElementById('leftCanva');
     const rightCanva = document.getElementById('rightCanva');
 
     navigator.getUserMedia({audio: true}).then(stream => {
-        leftCanva.src=URL.createObjectURL(stream);
-        rightCanva.src=URL.createObjectURL(stream);
-    }).catch(e) => { alert('Camera error'); };
+        leftCanva.src = window.oURL.createObjectURL(stream);
+        rightCanva.src = window.URL.createObjectURL(stream);
+    }).catch(e => { alert('Camera error'); });
   </script>
 </body>
 </html>
