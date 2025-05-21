@@ -1,0 +1,4 @@
+name: deploy-pages
+run: github-pages
+path: /
+branch: main
